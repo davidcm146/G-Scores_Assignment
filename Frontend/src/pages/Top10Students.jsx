@@ -41,7 +41,7 @@ const Top10Students = () => {
                     </thead>
                     <tbody>
                         {topStudents.map((student, index) => (
-                            <tr key={student.id}>
+                            <tr key={index}>
                                 <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
                                 <td className="border border-gray-300 px-4 py-2 text-center">{student.registration_no}</td>
                                 <td className="border border-gray-300 px-4 py-2 text-center">{student.math}</td>
