@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 const corsOptions = {
   origin: '*',
-  credentials: true,
+  credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
