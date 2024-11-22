@@ -1,0 +1,73 @@
+const { Pool } = require('pg');
+const fs = require('fs');
+const csv = require('csv-parser');
+
+const pool = new Pool({
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DBNAME,
+    password: process.env.POSTGRES_PASSWORD,
+    port: 5432,
+});
+
+async function loadCSV(filePath) {
+    const client = await pool.connect();
+    const results = [];
+
+    try {
+        // Đọc dữ liệu từ file CSV
+        fs.createReadStream(filePath)
+            .pipe(csv())
+            .on('data', (row) => {
+                // Đẩy từng dòng vào mảng
+                results.push([
+                    row.sbd,
+                    parseFloat(row.toan) || null,
+                    parseFloat(row.ngu_van) || null,
+                    parseFloat(row.ngoai_ngu) || null,
+                    parseFloat(row.vat_li) || null,
+                    parseFloat(row.hoa_hoc) || null,
+                    parseFloat(row.sinh_hoc) || null,
+                    parseFloat(row.lich_su) || null,
+                    parseFloat(row.dia_li) || null,
+                    parseFloat(row.gdcd) || null,
+                    row.ma_ngoai_ngu || null,
+                ]);
+            })
+            .on('end', async () => {
+                console.log(`Total rows parsed: ${results.length}`);
+
+                try {
+                    const query = `
+              INSERT INTO g_scores (
+                registration_no, math, literature, foreign_language, physics, chemistry, biology, 
+                history, geography, civic_education, language_id
+              ) VALUES (
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+              )
+            `;
+
+                    // Insert từng batch để giảm tải
+                    const batchSize = 10000; // Số lượng bản ghi trong một batch
+                    for (let i = 0; i < results.length; i += batchSize) {
+                        const batch = results.slice(i, i + batchSize);
+                        // Chia chạy từ i đến vị trí batch sẽ thực hiện 1 câu query với bao nhiêu batch
+                        const queries = batch.map((row) =>
+                            client.query(query, row)
+                        );
+                        await Promise.all(queries);
+                        console.log(`Inserted batch ${i / batchSize + 1}`);
+                    }
+                    console.log('Data uploaded successfully!');
+                } catch (err) {
+                    console.error('Error inserting data:', err);
+                } finally {
+                    client.release();
+                }
+            });
+    } catch (err) {
+        console.error('Error loading CSV:', err.message);
+    }
+}
+
+loadCSV('./db/diem_thi_thpt_2024.csv');
