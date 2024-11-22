@@ -1,4 +1,4 @@
-require('dotenv').config();  // Đảm bảo dotenv được load để lấy biến môi trường từ .env
+require('dotenv').config();
 
 module.exports = {
   development: {
