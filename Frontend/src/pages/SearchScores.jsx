@@ -18,7 +18,7 @@ const SearchScores = () => {
         setError(null);
     
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/scores/${registrationNumber}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/scores/${registrationNumber}`);
 
             if (response.status === 200) {
                 if (response.data) {

@@ -9,7 +9,7 @@ const Top10Students = () => {
     useEffect(() => {
         const fetchTopStudents = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/top10`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/top10`);
                 setTopStudents(response.data);
             } catch (err) {
                 setError('Failed to fetch data. Please try again.');

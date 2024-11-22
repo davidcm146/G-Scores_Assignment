@@ -16,7 +16,7 @@ const Reports = () => {
   useEffect(() => {
     const fetchReport = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/report`)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/report`)
         if (response.status === 200) {
           setReportData(response.data.data); // Set the report data
         }
