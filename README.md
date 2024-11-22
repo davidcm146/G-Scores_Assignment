@@ -24,7 +24,7 @@ npm install
 ```
 
 ### Step 3: Load data from diem_thi_thpt_2024.csv
-Prerequisite to download dataset from this link below and add it to folder db.<br>
+Prerequisite to download dataset from this following link and add it to folder db 
 [diem_thi_thpt_2024.csv](https://github.com/GoldenOwlAsia/webdev-intern-assignment-3/blob/main/dataset/diem_thi_thpt_2024.csv).<br>
 Run this command to load data:
 ```bash
