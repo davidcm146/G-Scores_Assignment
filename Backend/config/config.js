@@ -6,7 +6,13 @@ module.exports = {
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DBNAME,
     host: process.env.POSTGRES_HOST,
-    dialect: 'postgres',
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true, // Yêu cầu SSL
+        rejectUnauthorized: false, // Chấp nhận chứng chỉ không xác thực (có thể tắt trong môi trường phát triển)
+      },
+    },
   },
   test: {
     username: 'root',
@@ -20,6 +26,12 @@ module.exports = {
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DBNAME,
     host: process.env.POSTGRES_HOST,
-    dialect: 'postgres',
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true, // Yêu cầu SSL
+        rejectUnauthorized: false, // Chấp nhận chứng chỉ không xác thực (có thể tắt trong môi trường phát triển)
+      },
+    },
   }
 };

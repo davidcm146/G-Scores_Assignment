@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     registration_no: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true, // Số báo danh là khóa chính
+      unique: true,
     },
     math: {
       type: DataTypes.FLOAT,

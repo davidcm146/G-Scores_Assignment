@@ -10,6 +10,7 @@ module.exports = {
       },
       registration_no: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       math: {

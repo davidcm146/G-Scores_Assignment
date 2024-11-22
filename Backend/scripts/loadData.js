@@ -1,13 +1,14 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 const fs = require('fs');
 const csv = require('csv-parser');
 
 const pool = new Pool({
-    user: process.env.POSTGRES_USER,
-    host: process.env.POSTGRES_HOST,
-    database: process.env.POSTGRES_DBNAME,
-    password: process.env.POSTGRES_PASSWORD,
-    port: 5432,
+    connectionString: process.env.POSTGRES_CONNECTION_STRING,
+    ssl: {
+        require: true, // Yêu cầu SSL
+        rejectUnauthorized: false, // Chấp nhận chứng chỉ không xác thực (phát triển)
+    },
 });
 
 async function loadCSV(filePath) {
@@ -44,10 +45,10 @@ async function loadCSV(filePath) {
                 history, geography, civic_education, language_id
               ) VALUES (
                 $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
-              )
+              ) ON CONFLICT (registration_no) DO NOTHING;
             `;
 
-                    // Insert từng batch để giảm tải
+                    // Insert từng batch
                     const batchSize = 10000; // Số lượng bản ghi trong một batch
                     for (let i = 0; i < results.length; i += batchSize) {
                         const batch = results.slice(i, i + batchSize);
@@ -71,3 +72,4 @@ async function loadCSV(filePath) {
 }
 
 loadCSV('./db/diem_thi_thpt_2024.csv');
+
