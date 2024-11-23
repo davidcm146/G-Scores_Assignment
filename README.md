@@ -31,8 +31,8 @@ Run this command to load data:
 node scripts/loadData.js
 ```
 
-### Step 4: Install Backend Dependencies
-Run the backend
+### Step 4: Start Backend
+Run the backend with command
 ```bash
 npm run dev
 ```
@@ -40,20 +40,19 @@ npm run dev
 ## 2. Setup Frontend
 
 ### Step 1: Navigate to the Frontend Directory from Backend
-
 Use command
 ```bash 
 cd ../Frontend
 ```
 
-### Step 2: Install Backend Dependencies
+### Step 2: Install Frontend Dependencies
 Install the necessary dependencies for the backend using npm.
 ```bash
 npm install
 ```
 
-### Step 3: Install Backend Dependencies
-Run the backend
+### Step 3: Start Frontend
+Run the Frontend with command
 ```bash
 npm run dev
 ```
