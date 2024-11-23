@@ -28,7 +28,7 @@ Prerequisite to download dataset from this following link and add it to folder d
 [diem_thi_thpt_2024.csv](https://github.com/GoldenOwlAsia/webdev-intern-assignment-3/blob/main/dataset/diem_thi_thpt_2024.csv).<br>
 Run this command to load data:
 ```bash
-node loadData.js
+node scripts/loadData.js
 ```
 
 ### Step 4: Install Backend Dependencies
